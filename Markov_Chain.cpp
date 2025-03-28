@@ -61,7 +61,7 @@ int MarkovChain::determine_state(const std::vector<double> &probabilities)
     double cumulativeProbability = 0.0;
 
     // Iterate through the probabilities to find the corresponding state
-    for (int state = 0; state < probabilities.size(); ++state)
+    for (std::size_t state = 0; state < probabilities.size(); ++state)
     {
         cumulativeProbability += probabilities[state];
         if (randomValue <= cumulativeProbability)
@@ -84,7 +84,7 @@ std::vector<double> MarkovChain::computeStationaryDistribution()
         }
     }
 
-    // Transpose the matrix (we solve for the left eigenvector)
+    // Transpose the matrix
     Eigen::MatrixXd P_T = P.transpose();
 
     // Subtract the identity matrix

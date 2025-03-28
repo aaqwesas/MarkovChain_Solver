@@ -1,5 +1,6 @@
 #include <iostream>
-#include "Markov_Chain.hpp"
+#include <string>
+#include "Markov_Chain.hpp" // Assuming this contains your MarkovChain class
 
 enum choice
 {
@@ -11,27 +12,54 @@ enum choice
 int main()
 {
     MarkovChain mc("input.txt", "output.txt");
-    std::cout << "Choose your options (just type the number)" << std::endl;
-    std::cout << "1. Generate a random state" << std::endl;
-    std::cout << "2. Exit" << std::endl;
-    std::cout << "3. Solve stationary distribution" << std::endl;
 
-    int decision;
-    std::cin >> decision;
-    choice userChoice = static_cast<choice>(decision);
-    switch (userChoice)
+    while (true)
     {
-    case GENERATE_STATE:
-        int initialState = mc.determine_state(mc.initialProbabilities);
-        std::cout << "Generated state: " << mc.states[initialState] << std::endl;
-        break;
-    case SOLVE_STATE:
-        break;
-    case EXIT:
-        break;
-    default:
-        std::cout << "Invalid option. Please try again." << std::endl;
-        break;
+        // Display menu
+        std::cout << "Choose your options..." << std::endl;
+        std::cout << "1. Generate a random state" << std::endl;
+        std::cout << "2. Exit" << std::endl;
+        std::cout << "3. Solve stationary distribution" << std::endl;
+
+        int decision;
+        std::cin >> decision;
+
+        choice userChoice = static_cast<choice>(decision);
+
+        switch (userChoice)
+        {
+        case GENERATE_STATE:
+        {
+            // Generate a random state
+            int initialState = mc.determine_state(mc.initialProbabilities);
+            std::cout << "Generated state: " << mc.states[initialState] << std::endl;
+            break;
+        }
+        case EXIT:
+        {
+            // Exit the program
+            std::cout << "Exiting the program. Goodbye!" << std::endl;
+            return 0; // Terminate the program
+        }
+        case SOLVE_STATE:
+        {
+            // Solve for the stationary distribution
+            std::vector<double> stationaryDistribution = mc.computeStationaryDistribution();
+            std::cout << "Stationary Distribution:" << std::endl;
+            for (size_t i = 0; i < stationaryDistribution.size(); ++i)
+            {
+                std::cout << mc.states[i] << ": " << stationaryDistribution[i] << std::endl;
+            }
+            break;
+        }
+        default:
+        {
+            // Handle invalid input
+            std::cout << "Invalid option. Please try again." << std::endl;
+            break;
+        }
+        }
     }
+
     return 0;
 }
