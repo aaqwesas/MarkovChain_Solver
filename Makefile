@@ -3,10 +3,10 @@ CC = g++
 CFLAGS = -Wall -g
 
 # Source files
-SRCS = Markov_Chain.cpp main.cpp
+SRCS = MarkovChain.cpp main.cpp
 
 # Output executable
-TARGET = $(BUILD_DIR)/Markov_Chain.out
+TARGET = $(BUILD_DIR)/MarkovChain.out
 
 # Build directory
 BUILD_DIR = build
